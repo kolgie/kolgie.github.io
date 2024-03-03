@@ -74,9 +74,6 @@ Hello World
   .spinning-element {
     width: 150px;
     height: 150px;
-    background-image: 
-<img src="docs/assets/this post was fact checked by real american patriots.png" width=488 height=449>
-    background-size: cover;
     position: relative;
     animation: spin 2s linear infinite;
   }
@@ -89,11 +86,20 @@ Hello World
       transform: rotate(360deg);
     }
   }
+
+  .spinning-element img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 </head>
 <body>
 
-<div class="spinning-element"></div>
+<div class="spinning-element">
+  <img src="docs/assets/this post was fact checked by real american patriots.png" alt="real american patriot">
+</div>
 
 </body>
 </html>
+
