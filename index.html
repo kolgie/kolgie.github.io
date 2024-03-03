@@ -63,3 +63,37 @@ Hello World
 
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spinning Animation with Image</title>
+<style>
+  .spinning-element {
+    width: 150px;
+    height: 150px;
+    background-image: 
+<img src="docs/assets/this post was fact checked by real american patriots.png" width=488 height=449>
+    background-size: cover;
+    position: relative;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="spinning-element"></div>
+
+</body>
+</html>
