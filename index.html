@@ -52,8 +52,8 @@
 
         .overlay-image3 {
             position: absolute;
-            top: 50%;
-            left: 30%;
+            top: -90%;
+            left: 45%;
             transform: translate(-50%, -50%);
             width: 100px;
             height: auto;
@@ -63,7 +63,7 @@
 
         .overlay-image4 {
             position: absolute;
-            top: 50%;
+            top: -90%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 100px;
@@ -74,8 +74,8 @@
 
         .overlay-image5 {
             position: absolute;
-            top: 70%;
-            left: 30%;
+            top: -100%;
+            left: 50%;
             transform: translate(-50%, -50%);
             width: 150px;
             height: auto;
@@ -85,7 +85,7 @@
 
         .theorie {
             position: absolute;
-            top: 56%;
+            top: 61%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
@@ -96,7 +96,7 @@
 
         .projekte {
             position: absolute;
-            top: 77%;
+            top: 82%;
             left: 30%;
             transform: translate(-50%, -50%);
             text-align: center;
@@ -107,7 +107,7 @@
 
         .tools {
             position: absolute;
-            top: 56%;
+            top: 61%;
             left: 30%;
             transform: translate(-50%, -50%);
             text-align: center;
@@ -122,16 +122,19 @@
         <img src=".\assets\plain\4%20plain%202%202x.png" alt="Hintergrundbild" class="background-image">
         <img src=".\assets\buttons\kpdsh.png" alt="Overlay Bild" class="overlay-image1" id="hoverImage1">
         <img src=".\assets\buttons\kpdmlstern.png" alt="Overlay Bild" class="overlay-image2" id="hoverImage2">
-        <img src=".\assets\buttons\soviettech.png" alt="Overlay Bild" class="overlay-image3" id="hoverImage3">
-        <img src=".\assets\buttons\krb.png" alt="Overlay Bild" class="overlay-image4" id="hoverImage4">
-        <img src=".\assets\buttons\industrial1.png" alt="Overlay Bild" class="overlay-image5" id="hoverImage5">
-        <div class="theorie">
-            <h1 style="color: #d40000; font-size: 22px;"> Theorie </h1>
-        </div>
+        
         <div class="projekte">
+            <img src=".\assets\buttons\industrial1.png" alt="Overlay Bild" class="overlay-image5" id="hoverImage5">
             <h1 style="color: #d40000; font-size: 22px;"> Projekte </h1>
         </div>
+        <div class="theorie">
+            <img src=".\assets\buttons\krb.png" alt="Overlay Bild" class="overlay-image4" id="hoverImage4">
+            <h1 style="color: #d40000; font-size: 22px;"> Theorie </h1>
+        </div>
+        
+        
         <div class="tools">
+            <img src=".\assets\buttons\soviettech.png" alt="Overlay Bild" class="overlay-image3" id="hoverImage3">
             <h1 style="color: #d40000; font-size: 22px;"> Tools </h1>
         </div>
     </div>
@@ -200,6 +203,7 @@
             imageElement5.style.width = '150px';
         });
         imageElement5.addEventListener("click", function func() {document.location.href = "https://github.com/kolgie";})
+        console.log(toString(imageElement5.style.width))
     </script>
 </body>
 </html>
