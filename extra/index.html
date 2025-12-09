@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extra</title>
+    <link rel="icon" type="image/x-icon" href="/assets/meta/metaicon.ico">
+    <style>
+        body {
+            background-color: #C62120;
+        }
+        body, html {
+            font-family: 'Rubik';font-size: 22px;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+        }
+        .pass-check {
+            position: absolute;
+            top: 3%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 20px;
+            color: black;
+            z-index: 1;
+        }
+        .secret {
+            position: absolute;
+            top: 60%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            font-size: 20px;
+            color: black;
+            z-index: 1;
+        }
+        .background-container {
+            position: relative;
+            width: 100vw;
+            height: auto; 
+            background-image: url('..\\assets\\plain\\11%20plain%202x.png'); /* Pfad zum Hintergrundbild */
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Ermöglicht das Scrollen mit der Seite */
+            height: 150vh; /* Höhe auf 150% der Ansichtshöhe setzen, damit gescrollt werden kann */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-image {
+            display: block;
+            width: 100%;
+            height: auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <!-- <img src="..\assets\plain\11%20plain%202x.png" alt="Hintergrundbild" class="background-image"> -->
+        <div class="pass-check">
+            <h1>Passwort eingeben</h1>
+            <input type="text" id="inputString" placeholder="Passwort">
+            <button onclick="passCheck()">Zugriff erlangen</button>
+            
+        <!-- <a href=".\frageherren">Frage an die Herren</a> -->
+        </div>
+        <div class="secret">
+            <p id="result"></p>
+
+        </div>
+
+    <script>
+
+        const passHash = "78b49fb2cc2d2ed6c1bb8383b3d267b3bc623a8a0fb4aff4aa5d3db74c3b4967";
+        const secretEncoded = "ICAgICAgICAgICAgPHA+CgkJPHN0cm9uZz48Yj5MaWVzIGFsbGVzIGVpbm1hbCBkdXJjaCwgYmV2b3IgZHUgZXR3YXMgbWFjaHN0ITwvYj48L3N0cm9uZz48YnI+CgkJPGJyPgogICAgICAgICAgICAgICAgPHN0cm9uZz48Yj48aW5zPkJpbiBpY2ggaW0gbW9kZGVkIE1vZHVzIChlbXVNTUMpPzwvaW5zPjwvYj48L3N0cm9uZz48YnI+CiAgICAgICAgICAgICAgICDigKJBdWYgU3dpdGNoOiBBbGJ1bSBzdGFydGVuPGJyPgogICAgICAgICAgICAgICAgJmVtc3A74oazIG5vcm1hbCBhbGxlIEJpbGRlciB1bmQgVmlkZW9zOiBOSUNIVCBpbSBtb2RkZWQgTW9kdXM8YnI+CiAgICAgICAgICAgICAgICAmZW1zcDvihrMgSG9tZWJyZXcgQXBwczogSW0gbW9kZGVkIE1vZHVzPGJyPgogICAgICAgICAgICAgICAgPGJyPgogICAgICAgICAgICAgICAgPHN0cm9uZz48Yj48aW5zPk1vZGRlZCBNb2R1cyAoZW11TU1DKSBhdXMgbm9ybWFsZW0gTW9kdXMgKFN0b2NrKSBzdGFydGVuPC9pbnM+PC9iPjwvc3Ryb25nPjxicj4KICAgICAgICAgICAgICAgIOKAolN3aXRjaCBhdXNzY2hhbHRlbjxicj4KICAgICAgICAgICAgICAgIOKAolJlY2h0ZW4gSm95Y29uIGFibmVobWVuPGJyPgogICAgICAgICAgICAgICAg4oCiUkNNIEppZyAoa2xlaW5lcyByb3RlcyBUZWlsICg8YSBocmVmPSIuLlxhc3NldHNcZ3VpZGVzXGppZy5qcGciPkJpbGQ8L2E+KSkgbWl0IE9OIG5hY2ggdW50ZW4gYW4gZGllIFN0ZWxsZSBkZXMgcmVjaHRlbiBKb3ljb25zIHNjaGllYmVuICg8YSBocmVmPSIuLlxhc3NldHNcZ3VpZGVzXGppZ2luc3dpdGNoLmpwZyI+QmlsZDwvYT4pPGJyPgogICAgICAgICAgICAgICAg4oCiU3dpdGNoIHBlciBVU0ItQy16dS1VU0ItQS1LYWJlbCBtaXQgZWluZW0gUEMgdmVyYmluZGVuPGJyPgogICAgICAgICAgICAgICAg4oCiVGVncmFSY21HVUkuZXhlIMO2ZmZuZW4gdW5kIE9yZG5lci1Lbm9wZiA8aW5zPk5FQkVOPC9pbnM+IGRlbSAiSW5qZWN0IHBheWxvZCItS25vcGYgZHLDvGNrZW48YnI+CiAgICAgICAgICAgICAgICDigKJmdXNlZS5iaW4gYXVzd8OkaGxlbjxicj4KICAgICAgICAgICAgICAgIOKAokF1ZiBTd2l0Y2ggVm9sdW1lKyBnZWRyw7xja3QgaGFsdGVuIHVuZCBnbGVpY2h6ZWl0aWcgUG93ZXIgZHLDvGNrZW48YnI+CiAgICAgICAgICAgICAgICDigKJJbiBUZWdyYVJjbUdVSSBzb2xsdGUgbnVuIGluIGdyw7xuICJSQ00gTy5LIiBzdGVoZW4gKHdlbm4gbmljaHQsIGRhbm4gdm9yaGVyaWdlbiBTY2hyaXR0IHdpZWRlcmhvbGVuKTxicj4KICAgICAgICAgICAgICAgIOKAoiJJbmplY3QgcGF5bG9kIiBkcsO8Y2tlbjxicj4KICAgICAgICAgICAgICAgIOKAokR1IHNvbGx0ZXN0IGpldHp0IGltIGVtdU1NQyBzZWluIChjaGVja2UgbWl0IHZvcmhlcmlnZW0gQWJzY2huaXR0KTxicj4KICAgICAgICAgICAgICAgIOKAokVudGZlcm5lIGRlbiBSQ00gSmlnIHdpZWRlciB1bmQgdmVyYmluZGUgd2llZGVyIGRlaW5lbiByZWNodGVuIEpveWNvbjxicj4KICAgICAgICAgICAgICAgIDxicj4KICAgICAgICAgICAgICAgIDxzdHJvbmc+PGI+PGlucz5TcGllbGUgaW5zdGFsbGllcmVuPC9pbnM+PC9iPjwvc3Ryb25nPjxicj4KICAgICAgICAgICAgICAgIOKAokZpbmRlIGVpbiAobGVnYWwgZXJsYW5ndGVzIDxpPnp3aW5raSB6d29pbmtpPC9pPikgU3dpdGNoLVNwaWVsIChST00gZ2VuYW5udCkgaW0gRm9ybWF0IC5uc3Agb2RlciAueGNpIG1pdCBhbGxlbiBVcGRhdGUtLCB1bmQgRExDLURhdGVpZW4gKGViZW5mYWxscyAubnNwIG9kZXIgLnhjaSksIGZhbGxzIHZvcmhhbmRlbiAoZmFsbHMgLnJhci1EYXRlaSwgZGFubiBlcnN0IG1pdCA3LVppcCBlbnRwYWNrZW4pPGJyPgogICAgICAgICAgICAgICAg4oCiU3RhcnRlIE5TLVVTQmxvYWRlci5leGUgYXVmIGRlbSBQQzxicj4KICAgICAgICAgICAgICAgIOKAolN0YXJ0ZSBlaW4gU3BpZWwgYXVmIGRlciBTd2l0Y2gsIHfDpGhyZW5kIGR1IGRlbiBSLUtub3BmIGdlZHLDvGNrdCBow6Rsc3Q8YnI+CiAgICAgICAgICAgICAgICDigKJEdSBzb2xsdGVzdCBudW4gZGllIEhvbWVicmV3LUFwcHMgc2VoZW4gKHdlbm4gZGVpbiBTcGllbCBub3JtYWwgc3RhcnRldCwgc2NobGllw59lIGVzIHVuZCB2ZXJzdWNoZSBlcyBub2NobWFsKTxicj4KICAgICAgICAgICAgICAgIOKAolN0YXJ0ZSBBd29vIEluc3RhbGxlcjxicj4KICAgICAgICAgICAgICAgIOKAolfDpGhsZSAiw5xiZXIgVVNCIGluc3RhbGxpZXJlbiIgYXVzPGJyPgogICAgICAgICAgICAgICAg4oCiQXVmIGRlbSBQQyBpbiBOUy1VU0Jsb2FkZXIga2xpY2tlICIuTlNQIERhdGVpZW4gYXVzd8OkaGxlbiIgKHVudGVuIGxpbmtzKSB1bmQgd8OkaGxlIGRlaW5lIERhdGVpZW4gYXVzICgubnNwIHVuZCAueGNpIGZ1bmt0aW9uaWVyZW4gYmVpZGUpPGJyPgogICAgICAgICAgICAgICAgJmVtc3A74oazIDxpbnM+U3RhcnRlIG1pdCBkZXIgQmFzZS1HYW1lLURhdGVpLCBtYWNoIGRpZSBVcGRhdGUtRGF0ZWllbiBlcnN0IHNww6R0ZXIgdW5kIGRpZSBETENzIGVyc3QgZ2FueiB6dW0gU2NobHVzczwvaW5zPjxicj4KICAgICAgICAgICAgICAgIOKAoktsaWNrZSAiSG9jaGxhZGVuIHp1IE5TIjxicj4KICAgICAgICAgICAgICAgIOKAokF1ZiBkZXIgU3dpdGNoIHNpZWhzdCBkdSBudW4gZGVuIFRpdGVsIGRlcyBTcGllbHM8YnI+CiAgICAgICAgICAgICAgICDigKJEcsO8Y2tlIFkgdW5kIGRhbm4gKyB1bSBlcnN0IGFsbGUgRGF0ZWllbiBhdXN6dXfDpGhsZW4gdW5kIGRhbm4genUgaW5zdGFsbGllcmVuPGJyPgogICAgICAgICAgICAgICAgJmVtc3A74oazIDxpbnM+RmFsbHMgZGllIE5DQS1TaWduYXR1ciBmZWhsc2NobMOkZ3QgKE1lbGR1bmcpLCBicmljaCBhYiB1bmQgdmVyc3VjaGUgZWluZSBhbmRlcmUgUk9NPC9pbnM+PGJyPgogICAgICAgICAgICAgICAg4oCiRmFsbHMgZHUgYXVjaCBVcGRhdGUtRGF0ZWllbiBoYXN0LCB3aWVkZXJob2xlIGRpZSBTY2hyaXR0ZSBtaXQgZGllc2VuLCBtYWNoIGRpZSBETENzIGVyc3QgZ2FueiB6dW0gU2NobHVzczxicj4KICAgICAgICAgICAgICAgIOKAolNvYmFsZCBmZXJ0aWcsIGdlaGUgYXVmIGRlbiBIb21lLUJpbGRzY2hpcm0gZGVyIFN3aXRjaCB1bmQgcHJvYmllcmUgZGFzIFNwaWVsIGF1cyAoPGlucz5hbSBiZXN0ZW4gbWl0PGJyPkludGVybmV0IGF1cyE8L2lucz4pPGJyPgogICAgICAgICAgICAgICAgJmVtc3A74oazIDxpbnM+QnJpY2ggVXBkYXRlcyBpbW1lciBhYiwgYnp3LiBzdGFydGUgc2llIG5pY2h0LCBzb2Zlcm4gZHUgZ2VmcmFndCB3aXJzdDwvaW5zPjxicj4KICAgICAgICAgICAgICAgIDxicj4KICAgICAgICAgICAgICAgIDxzdHJvbmc+PGI+PGlucz5JbiBub3JtYWxlbiBNb2R1cyAoU3RvY2spIHdlY2hzZWxuPC9pbnM+PC9iPjwvc3Ryb25nPjxicj4KICAgICAgICAgICAgICAgIOKAolN0YXJ0ZSBkaWUgU3dpdGNoIG5ldTxicj4KICAgICAgICAgICAgICAgIOKAokR1IGJpc3QgbnVuIGltIGhla2F0ZS1NZW7DvDxicj4KICAgICAgICAgICAgICAgIOKAokRyw7xja2UgYXVmICJMYXVuY2giPGJyPgogICAgICAgICAgICAgICAg4oCiV8OkaGxlIFN0b2NrIGF1czxicj4KICAgICAgICAgICAgICAgIDxicj4KICAgICAgICAgICAgICAgIDxzdHJvbmc+PGI+PGlucz5JbnRlcm5ldHZlcmJpbmR1bmcgc2ljaGVyIGhlcnN0ZWxsZW4gKE5VUiBXRU5OIE7DllRJRywgc3RhcnRlIFNwaWVsZSBpbW1lciBvZmZsaW5lISk8L2lucz48L2I+PC9zdHJvbmc+PGJyPgogICAgICAgICAgICAgICAg4oCiRsO8Z2UgaW4gZGVuIEludGVybmV0ZWluc3RlbGx1bmdlbiBkYXMgV0xBTiBoaW56dTxicj4KICAgICAgICAgICAgICAgIOKAolN0YXJ0ZSBlaW4gU3BpZWwsIHfDpGhyZW5kIGR1IGRpZSBSLVRhc3RlIGdlZHLDvGNrdCBow6Rsc3QsIHVtIHp1IGRlbiBIb21lYnJldy1BcHBzIHp1IGdlbGFuZ2VuPGJyPgogICAgICAgICAgICAgICAg4oCiU3RhcnRlIDkwZG5zIHNldHRlcjxicj4KICAgICAgICAgICAgICAgIOKAokZvbGdlIGRlbiBBbndlaXN1bmdlbiBhdWYgZGVtIEJpbGRzY2hpcm0sIHVtIGVzIGF1ZiBBTExFIFdpZmktVmVyYmluZHVuZ2VuIGFuenV3ZW5kZW48YnI+CiAgICAgICAgICAgICAgICDigKJGb2xnZSBkZW4gQW53ZWlzdW5nZW4gYXVmIGRlbSBCaWxkc2NoaXJtLCB1bSBkaWUgS29uc29sZSBuZXV6dXN0YXJ0ZW48YnI+CiAgICAgICAgICAgICAgICDigKLDnGJlcnByw7xmZSBpbiBkZW4gSW50ZXJuZXRlaW5zdGVsbHVuZ2VuIGluIGRlbiBTeXN0ZW1laW5zdGVsbHVuZ2VuIHVudGVyIGRlbjxicj5ETlMtRWluc3RlbGx1bmdlbiwgb2IgZXMgd2llIGZvbGd0IGF1c3NpZWh0Ojxicj4KICAgICAgICAgICAgICAgICZlbXNwO1ByaW3DpHItRE5TOiAxNjMuMTcyLjE0MS4yMTk8YnI+CiAgICAgICAgICAgICAgICAmZW1zcDtTZWt1bmTDpHItRE5TOiAyMDcuMjQ2LjEyMS43Nzxicj4KICAgICAgICAgICAgICAgIOKAoldlbm4gbmljaHQsIHdpZWRlcmhvbGUgYWxsZSBTY2hyaXR0ZSBkaWVzZXMgQWJzY2huaXR0ZXM8YnI+CiAgICAgICAgICAgIDwvcD4="
+        
+        async function hashString(inputString) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(inputString);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+            return hashHex;
+        }
+
+        function bsfDecodeUnicode(str) {
+    // Dekodiert BSF, das UTF-8-codierte Daten enthält
+            return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        }
+
+        function changePageTitle(newTitle) {
+            document.title = newTitle;
+        }
+
+        async function passCheck() {
+            let input = document.getElementById('inputString').value;
+            let hash = await hashString(input);
+            //document.getElementById('result').textContent = "Hash: " + hash;
+            if (hash == passHash) {
+                changePageTitle("Switch CFW Guide")
+                document.getElementById('result').innerHTML = bsfDecodeUnicode(secretEncoded);
+                //document.getElementById('result').innerHTML = window.atob(base64secret);
+            } else {
+                changePageTitle("Extra")
+                document.getElementById('result').textContent = "Falsches Passwort :(";
+            }
+        }
+    </script>
+</body>
+</html>
