@@ -1,0 +1,80 @@
+
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto Slab' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="icon" type="image/x-icon" href="/assets/meta/metaicon.ico">
+    <style>
+        body {
+            background-color: #D2361A;
+        }
+        body, html {
+            font-family: 'Roboto Slab';font-size: 22px;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+        }
+        .textbody {
+            position: absolute;
+            top: 15%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            font-size: 1vw;
+            color: black;
+            z-index: 1;
+        }
+        .genai {
+            position: absolute;
+            top: 21%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            font-size: 45px;
+            width: 5vw;
+            color: black;
+            z-index: 1;
+        }
+        .background-container {
+            position: relative;
+            width: 100vw;
+            height: auto; 
+        }
+
+        .background-image {
+            display: block;
+            width: 100%;
+            height: auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <img src="..\assets\plain\12%20plain%202x.png" alt="Hintergrundbild" class="background-image">
+        <div class="genai">
+            <img src="..\assets\meta\genaineindanke.png" alt="Generative AI Nein Danke" class="genai" id="genai">
+        </div>
+        <div class="textbody">
+            <p>
+                <strong><b><ins>Was ist das hier?</ins></b></strong><br>
+                Das hier ist meine Website, auf der sich alles Mögliche befindet: Meine Projekte, Theorie, Kreatives, angesammeltes Wissen, usw.<br>
+                <br>
+                <strong><b><ins>Was sind das für Bilder auf dieser Seite?</ins></b></strong><br>
+                Die gesamten Medien auf dieser Seite sind aus alten Propagandapostern, die ich bearbeitet habe. Diese kommen aus der Volksrepublik China, der Sowjetunion und Deutschland (Weimarer Republik, DDR, BRD).<br>
+                <br>
+                <strong><b><ins>Warum gibt es verschmierte Stellen auf den zuvor erwähnten Grafiken?</ins></b></strong><br>
+                Diese stammen vom Upscaling der Poster. Hierzu wird der Upscaler <a href="https://waifu2x.net/">waifu2x</a> benutzt,<br>welcher auf neuronalen Netzwerken basiert (genauer: <a href="https://de.wikipedia.org/wiki/Convolutional_Neural_Network">Deep Convolutional Neural Network</a>).<br>Wichtig hierbei ist aber, dass es sich nicht um generative KI handelt, welche ähnliche Merkmale<br>aufweisen kann!
+            </p>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>
