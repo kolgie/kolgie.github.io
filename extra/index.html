@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Rubik' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extra</title>
+    <link rel="icon" type="image/x-icon" href="/assets/meta/metaicon.ico">
+    <style>
+        body {
+            background-color: #C62120;
+        }
+        body, html {
+            font-family: 'Rubik';font-size: 22px;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+        }
+        .pass-check {
+            position: absolute;
+            top: 3%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 1vw;
+            color: black;
+            z-index: 1;
+        }
+        .secret {
+            position: absolute;
+            top: 130%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+            text-align: left;
+            font-size: 2vw;
+            color: black;
+            z-index: 1;
+        }
+        .background-container {
+            position: relative;
+            width: 100vw;
+            height: auto; 
+            background-image: url('..\\assets\\plain\\11%20plain%202x.png'); /* Pfad zum Hintergrundbild */
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; /* Ermöglicht das Scrollen mit der Seite */
+            height: 150vh; /* Höhe auf 150% der Ansichtshöhe setzen, damit gescrollt werden kann */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .background-image {
+            display: block;
+            width: 100%;
+            height: auto; 
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <!-- <img src="..\assets\plain\11%20plain%202x.png" alt="Hintergrundbild" class="background-image"> -->
+        <div class="pass-check">
+            <h1>Passwort eingeben</h1>
+            <input type="text" id="inputString" placeholder="Passwort">
+            <button onclick="passCheck()">Zugriff erlangen</button>
+            
+        <!-- <a href=".\frageherren">Frage an die Herren</a> -->
+        </div>
+        <div class="secret">
+            <p id="result"></p>
+        </div>
+
+    <script>
+
+        const passHash = "78b49fb2cc2d2ed6c1bb8383b3d267b3bc623a8a0fb4aff4aa5d3db74c3b4967";
+        const secretEncoded = "CQk8c3Ryb25nPjxiPkxpZXMgYWxsZXMgZWlubWFsIGR1cmNoLCBiZXZvciBkdSBldHdhcyBtYWNoc3QhPC9iPjwvc3Ryb25nPjxicj4KCQk8YnI+CiAgICAgICAgICAgICAgICA8c3Ryb25nPjxiPjxpbnM+QmluIGljaCBpbSBtb2RkZWQgTW9kdXMgKGVtdU1NQyk/PC9pbnM+PC9iPjwvc3Ryb25nPjxicj4KICAgICAgICAgICAgICAgIOKAokF1ZiBTd2l0Y2g6IEFsYnVtIHN0YXJ0ZW48YnI+CiAgICAgICAgICAgICAgICAmZW1zcDvihrMgbm9ybWFsIGFsbGUgQmlsZGVyIHVuZCBWaWRlb3M6IE5JQ0hUIGltIG1vZGRlZCBNb2R1czxicj4KICAgICAgICAgICAgICAgICZlbXNwO+KGsyBIb21lYnJldyBBcHBzOiBJbSBtb2RkZWQgTW9kdXM8YnI+CiAgICAgICAgICAgICAgICA8YnI+CiAgICAgICAgICAgICAgICA8c3Ryb25nPjxiPjxpbnM+TW9kZGVkIE1vZHVzIChlbXVNTUMpIGF1cyBub3JtYWxlbSBNb2R1cyAoU3RvY2spIHN0YXJ0ZW48L2lucz48L2I+PC9zdHJvbmc+PGJyPgogICAgICAgICAgICAgICAg4oCiU3dpdGNoIGF1c3NjaGFsdGVuPGJyPgogICAgICAgICAgICAgICAg4oCiUmVjaHRlbiBKb3ljb24gYWJuZWhtZW48YnI+CiAgICAgICAgICAgICAgICDigKJSQ00gSmlnIChrbGVpbmVzIHJvdGVzIFRlaWwgKDxhIGhyZWY9Ii4uXGFzc2V0c1xndWlkZXNcamlnLmpwZyI+QmlsZDwvYT4pKSBtaXQgT04gbmFjaCB1bnRlbiBhbiBkaWUgU3RlbGxlIGRlcyByZWNodGVuIEpveWNvbnMgc2NoaWViZW4gKDxhIGhyZWY9Ii4uXGFzc2V0c1xndWlkZXNcamlnaW5zd2l0Y2guanBnIj5CaWxkPC9hPik8YnI+CiAgICAgICAgICAgICAgICDigKJTd2l0Y2ggcGVyIFVTQi1DLXp1LVVTQi1BLUthYmVsIG1pdCBlaW5lbSBQQyB2ZXJiaW5kZW48YnI+CiAgICAgICAgICAgICAgICDigKJUZWdyYVJjbUdVSS5leGUgw7ZmZm5lbiB1bmQgT3JkbmVyLUtub3BmIDxpbnM+TkVCRU48L2lucz4gZGVtICJJbmplY3QgcGF5bG9kIi1Lbm9wZiBkcsO8Y2tlbjxicj4KICAgICAgICAgICAgICAgIOKAomZ1c2VlLmJpbiBhdXN3w6RobGVuPGJyPgogICAgICAgICAgICAgICAg4oCiQXVmIFN3aXRjaCBWb2x1bWUrIGdlZHLDvGNrdCBoYWx0ZW4gdW5kIGdsZWljaHplaXRpZyBQb3dlciBkcsO8Y2tlbjxicj4KICAgICAgICAgICAgICAgIOKAokluIFRlZ3JhUmNtR1VJIHNvbGx0ZSBudW4gaW4gZ3LDvG4gIlJDTSBPLksiIHN0ZWhlbiAod2VubiBuaWNodCwgZGFubiB2b3JoZXJpZ2VuIFNjaHJpdHQgd2llZGVyaG9sZW4pPGJyPgogICAgICAgICAgICAgICAg4oCiIkluamVjdCBwYXlsb2QiIGRyw7xja2VuPGJyPgogICAgICAgICAgICAgICAg4oCiRHUgc29sbHRlc3QgamV0enQgaW0gZW11TU1DIHNlaW4gKGNoZWNrZSBtaXQ8YnI+dm9yaGVyaWdlbSBBYnNjaG5pdHQpPGJyPgogICAgICAgICAgICAgICAg4oCiRW50ZmVybmUgZGVuIFJDTSBKaWcgd2llZGVyIHVuZCB2ZXJiaW5kZSB3aWVkZXI8YnI+ZGVpbmVuIHJlY2h0ZW4gSm95Y29uPGJyPgogICAgICAgICAgICAgICAgPGJyPgogICAgICAgICAgICAgICAgPHN0cm9uZz48Yj48aW5zPlNwaWVsZSBpbnN0YWxsaWVyZW48L2lucz48L2I+PC9zdHJvbmc+PGJyPgogICAgICAgICAgICAgICAg4oCiRmluZGUgZWluIChsZWdhbCBlcmxhbmd0ZXMgPGk+endpbmtpIHp3b2lua2k8L2k+KSBTd2l0Y2gtU3BpZWw8YnI+KFJPTSBnZW5hbm50KSBpbSBGb3JtYXQgLm5zcCBvZGVyIC54Y2kgbWl0IGFsbGVuPGJyPlVwZGF0ZS0sIHVuZCBETEMtRGF0ZWllbiAoZWJlbmZhbGxzIC5uc3A8YnI+b2RlciAueGNpKSwgZmFsbHMgdm9yaGFuZGVuIChmYWxscyAucmFyLURhdGVpLDxicj5kYW5uIGVyc3QgbWl0IDctWmlwIGVudHBhY2tlbik8YnI+CiAgICAgICAgICAgICAgICDigKJTdGFydGUgTlMtVVNCbG9hZGVyLmV4ZSBhdWYgZGVtIFBDPGJyPgogICAgICAgICAgICAgICAg4oCiU3RhcnRlIGVpbiBTcGllbCBhdWYgZGVyIFN3aXRjaCwgd8OkaHJlbmQgZHUgZGVuIFItS25vcGYgZ2VkcsO8Y2t0IGjDpGxzdDxicj4KICAgICAgICAgICAgICAgIOKAokR1IHNvbGx0ZXN0IG51biBkaWUgSG9tZWJyZXctQXBwcyBzZWhlbiAod2VubiBkZWluIFNwaWVsIG5vcm1hbCBzdGFydGV0LCBzY2hsaWXDn2UgZXMgdW5kIHZlcnN1Y2hlIGVzIG5vY2htYWwpPGJyPgogICAgICAgICAgICAgICAg4oCiU3RhcnRlIEF3b28gSW5zdGFsbGVyPGJyPgogICAgICAgICAgICAgICAg4oCiV8OkaGxlICLDnGJlciBVU0IgaW5zdGFsbGllcmVuIiBhdXM8YnI+CiAgICAgICAgICAgICAgICDigKJBdWYgZGVtIFBDIGluIE5TLVVTQmxvYWRlciBrbGlja2UgIi5OU1AgRGF0ZWllbiBhdXN3w6RobGVuIiAodW50ZW4gbGlua3MpIHVuZCB3w6RobGUgZGVpbmUgRGF0ZWllbiBhdXMgKC5uc3AgdW5kIC54Y2kgZnVua3Rpb25pZXJlbiBiZWlkZSk8YnI+CiAgICAgICAgICAgICAgICAmZW1zcDvihrMgPGlucz5TdGFydGUgbWl0IGRlciBCYXNlLUdhbWUtRGF0ZWksIG1hY2ggZGllIFVwZGF0ZS1EYXRlaWVuIGVyc3Qgc3DDpHRlciB1bmQgZGllIERMQ3MgZXJzdCBnYW56IHp1bSBTY2hsdXNzPC9pbnM+PGJyPgogICAgICAgICAgICAgICAg4oCiS2xpY2tlICJIb2NobGFkZW4genUgTlMiPGJyPgogICAgICAgICAgICAgICAg4oCiQXVmIGRlciBTd2l0Y2ggc2llaHN0IGR1IG51biBkZW4gVGl0ZWwgZGVzIFNwaWVsczxicj4KICAgICAgICAgICAgICAgIOKAokRyw7xja2UgWSB1bmQgZGFubiArIHVtIGVyc3QgYWxsZSBEYXRlaWVuIGF1c3p1d8OkaGxlbiB1bmQgZGFubiB6dSBpbnN0YWxsaWVyZW48YnI+CiAgICAgICAgICAgICAgICAmZW1zcDvihrMgPGlucz5GYWxscyBkaWUgTkNBLVNpZ25hdHVyIGZlaGxzY2hsw6RndCAoTWVsZHVuZyksIGJyaWNoIGFiIHVuZCB2ZXJzdWNoZSBlaW5lIGFuZGVyZSBST008L2lucz48YnI+CiAgICAgICAgICAgICAgICDigKJGYWxscyBkdSBhdWNoIFVwZGF0ZS1EYXRlaWVuIGhhc3QsIHdpZWRlcmhvbGUgZGllIFNjaHJpdHRlIG1pdCBkaWVzZW4sIG1hY2ggZGllIERMQ3MgZXJzdCBnYW56IHp1bSBTY2hsdXNzPGJyPgogICAgICAgICAgICAgICAg4oCiU29iYWxkIGZlcnRpZywgZ2VoZSBhdWYgZGVuIEhvbWUtQmlsZHNjaGlybSBkZXIgU3dpdGNoIHVuZCBwcm9iaWVyZSBkYXMgU3BpZWwgYXVzICg8aW5zPmFtIGJlc3RlbiBtaXQ8YnI+SW50ZXJuZXQgYXVzITwvaW5zPik8YnI+CiAgICAgICAgICAgICAgICAmZW1zcDvihrMgPGlucz5CcmljaCBVcGRhdGVzIGltbWVyIGFiLCBiencuIHN0YXJ0ZSBzaWUgbmljaHQsIHNvZmVybiBkdSBnZWZyYWd0IHdpcnN0PC9pbnM+PGJyPgogICAgICAgICAgICAgICAgPGJyPgogICAgICAgICAgICAgICAgPHN0cm9uZz48Yj48aW5zPkluIG5vcm1hbGVuIE1vZHVzIChTdG9jaykgd2VjaHNlbG48L2lucz48L2I+PC9zdHJvbmc+PGJyPgogICAgICAgICAgICAgICAg4oCiU3RhcnRlIGRpZSBTd2l0Y2ggbmV1PGJyPgogICAgICAgICAgICAgICAg4oCiRHUgYmlzdCBudW4gaW0gaGVrYXRlLU1lbsO8PGJyPgogICAgICAgICAgICAgICAg4oCiRHLDvGNrZSBhdWYgIkxhdW5jaCI8YnI+CiAgICAgICAgICAgICAgICDigKJXw6RobGUgU3RvY2sgYXVzPGJyPgogICAgICAgICAgICAgICAgPGJyPgogICAgICAgICAgICAgICAgPHN0cm9uZz48Yj48aW5zPkludGVybmV0dmVyYmluZHVuZyBzaWNoZXIgaGVyc3RlbGxlbiAoTlVSIFdFTk4gTsOWVElHLCBzdGFydGUgU3BpZWxlIGltbWVyIG9mZmxpbmUhKTwvaW5zPjwvYj48L3N0cm9uZz48YnI+CiAgICAgICAgICAgICAgICDigKJGw7xnZSBpbiBkZW4gSW50ZXJuZXRlaW5zdGVsbHVuZ2VuIGRhcyBXTEFOIGhpbnp1PGJyPgogICAgICAgICAgICAgICAg4oCiU3RhcnRlIGVpbiBTcGllbCwgd8OkaHJlbmQgZHUgZGllIFItVGFzdGUgZ2VkcsO8Y2t0IGjDpGxzdCwgdW0genUgZGVuIEhvbWVicmV3LUFwcHMgenUgZ2VsYW5nZW48YnI+CiAgICAgICAgICAgICAgICDigKJTdGFydGUgOTBkbnMgc2V0dGVyPGJyPgogICAgICAgICAgICAgICAg4oCiRm9sZ2UgZGVuIEFud2Vpc3VuZ2VuIGF1ZiBkZW0gQmlsZHNjaGlybSwgdW0gZXMgYXVmIEFMTEUgV2lmaS1WZXJiaW5kdW5nZW4gYW56dXdlbmRlbjxicj4KICAgICAgICAgICAgICAgIOKAokZvbGdlIGRlbiBBbndlaXN1bmdlbiBhdWYgZGVtIEJpbGRzY2hpcm0sIHVtIGRpZSBLb25zb2xlIG5ldXp1c3RhcnRlbjxicj4KICAgICAgICAgICAgICAgIOKAosOcYmVycHLDvGZlIGluIGRlbiBJbnRlcm5ldGVpbnN0ZWxsdW5nZW4gaW4gZGVuIFN5c3RlbWVpbnN0ZWxsdW5nZW4gdW50ZXIgZGVuPGJyPkROUy1FaW5zdGVsbHVuZ2VuLCBvYiBlcyB3aWUgZm9sZ3QgYXVzc2llaHQ6PGJyPgogICAgICAgICAgICAgICAgJmVtc3A7UHJpbcOkci1ETlM6IDE2My4xNzIuMTQxLjIxOTxicj4KICAgICAgICAgICAgICAgICZlbXNwO1Nla3VuZMOkci1ETlM6IDIwNy4yNDYuMTIxLjc3PGJyPgogICAgICAgICAgICAgICAg4oCiV2VubiBuaWNodCwgd2llZGVyaG9sZSBhbGxlIFNjaHJpdHRlIGRpZXNlcyBBYnNjaG5pdHRlczxicj4="
+        
+        async function hashString(inputString) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(inputString);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+            return hashHex;
+        }
+
+        function bsfDecodeUnicode(str) {
+    // Dekodiert BSF, das UTF-8-codierte Daten enthält
+            return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        }
+
+        function changePageTitle(newTitle) {
+            document.title = newTitle;
+        }
+
+        async function passCheck() {
+            let input = document.getElementById('inputString').value;
+            let hash = await hashString(input);
+            //document.getElementById('result').textContent = "Hash: " + hash;
+            if (hash == passHash) {
+                changePageTitle("Switch CFW Guide")
+                document.getElementById('result').innerHTML = bsfDecodeUnicode(secretEncoded);
+                //document.getElementById('result').innerHTML = window.atob(base64secret);
+            } else {
+                changePageTitle("Extra")
+                document.getElementById('result').textContent = "Falsches Passwort :(";
+            }
+        }
+    </script>
+</body>
+</html>
